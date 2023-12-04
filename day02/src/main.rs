@@ -40,6 +40,42 @@ fn is_possible_hand(hand: &str) -> bool {
     }
 }
 
+fn is_possible_round2(round: &str) -> bool {
+    let count = round.split(',').count();
+    let possible = round.split(',').filter(|x| is_possible_hand(x)).count();
+    count == possible
+}
+
+fn is_possible_hand2(hand: &str) -> Option<usize> {
+    let (count_str, colour) = hand.trim().split_once(' ').unwrap();
+    let count: usize = count_str.parse().unwrap();
+
+    match colour {
+        "red" => {
+            if count <= 12 {
+                Some(count)
+            } else {
+                None
+            }
+        }
+        "green" => {
+            if count <= 13 {
+                Some(count)
+            } else {
+                None
+            }
+        }
+        "blue" => {
+            if count <= 14 {
+                Some(count)
+            } else {
+                None
+            }
+        }
+        _ => None,
+    }
+}
+
 #[test]
 fn part1_works() {
     let input = "Game 1: 3 blue, 4 red; 1 red, 2 green, 6 blue; 2 green
